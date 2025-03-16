@@ -23,6 +23,7 @@ public class Concert {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long concertId;
 	
+	private String name;
 	private String date;
 	
 	// Many Concerts -> one Venue
