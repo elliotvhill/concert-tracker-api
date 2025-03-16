@@ -17,8 +17,10 @@ public class VenueService {
 	private VenueDao venueDao;
 
 	/**
+	 * Save a Venue object, whether a new (insert) or an update.
+	 * 
 	 * @param venueData
-	 * @return
+	 * @return VenueData
 	 */
 
 	@Transactional(readOnly = false)
@@ -35,7 +37,7 @@ public class VenueService {
 	 * and return the Venue that was found.
 	 * 
 	 * @param venueId
-	 * @return
+	 * @return Venue
 	 */
 	private Venue findOrCreateVenue(Long venueId) {
 		if (Objects.isNull(venueId)) {
@@ -49,7 +51,7 @@ public class VenueService {
 	 * Find a Venue by ID or throw a NoSuchElementException if it doesn't exist.
 	 * 
 	 * @param venueId
-	 * @return
+	 * @return Venue
 	 */
 	private Venue findVenueById(Long venueId) {
 		return venueDao.findById(venueId)
