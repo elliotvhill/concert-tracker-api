@@ -5,7 +5,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -54,6 +56,16 @@ public class VenueController {
 		return venueService.retrieveAllVenues();
 	}
 
+	/**
+	 * Update a Venue object.
+	 */
+	@PutMapping("/venue/{venueId}")
+	public VenueData updateVenue(@PathVariable Long venueId, @RequestBody VenueData venueData) {
+		venueData.setVenueId(venueId);
+		log.info("Updated venue with ID={}", venueId);
+		return venueService.saveVenue(venueData);
+	}
+	
 	/**
 	 * Create and insert a new Concert to the database.
 	 * 
