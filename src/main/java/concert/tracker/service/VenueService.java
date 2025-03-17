@@ -79,7 +79,7 @@ public class VenueService {
 	/**
 	 * Retrieve a list of all the Venues.
 	 * 
-	 * @return VenueData venueDataResults
+	 * @return List<VenueData> venueDataResults
 	 */
 	public List<VenueData> retrieveAllVenues() {
 		/**
