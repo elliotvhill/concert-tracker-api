@@ -1,5 +1,7 @@
 package concert.tracker.service;
 
+import java.util.LinkedList;
+import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Objects;
 
@@ -72,5 +74,33 @@ public class VenueService {
 		venue.setCity(venueData.getCity());
 		venue.setState(venueData.getState());
 		venue.setZip(venueData.getZip());
+	}
+
+	/**
+	 * Retrieve a list of all the Venues.
+	 * 
+	 * @return VenueData venueDataResults
+	 */
+	public List<VenueData> retrieveAllVenues() {
+		/**
+		 * Retrieve list of venues as Venue objects.
+		 */
+		List<Venue> venues = venueDao.findAll();
+
+		/**
+		 * Create empty List of VenueData (because retrieveAllVenues method in the
+		 * controller returns a VenueData object.
+		 */
+		List<VenueData> venueDataResults = new LinkedList<>();
+		
+		/**
+		 * Loop through Venues List and add entities to VenueData List.
+		 */
+		for (Venue venue : venues) {
+			VenueData venueData = new VenueData(venue);
+			venueDataResults.add(venueData);
+		}
+
+		return venueDataResults;
 	}
 }
