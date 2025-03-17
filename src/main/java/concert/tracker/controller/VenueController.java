@@ -77,9 +77,9 @@ public class VenueController {
 	}
 	
 	// TODO: retrieve all Artists
-//	@GetMapping("/artist")
-//	public List<ArtistData> retrieveAllArtists() {
-//		log.info("Retrieving all artists...");
-//		return artistService.retrieveAllArtists();
-//	}
+	@GetMapping("/artist")
+	public List<ArtistData> retrieveAllArtists() {
+		log.info("Retrieving all artists...");
+		return artistService.retrieveAllArtists();
+	}
 }

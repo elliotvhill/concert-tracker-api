@@ -1,5 +1,7 @@
 package concert.tracker.service;
 
+import java.util.LinkedList;
+import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Objects;
 
@@ -33,7 +35,7 @@ public class ArtistService {
 	 * findArtistById and return the Artist that was found.
 	 * 
 	 * @param artistId
-	 * @return
+	 * @return Artist
 	 */
 	private Artist findOrCreateArtist(Long artistId) {
 		if (Objects.isNull(artistId)) {
@@ -48,7 +50,7 @@ public class ArtistService {
 	 * found, i.e. doesn't exist.
 	 * 
 	 * @param artistId
-	 * @return
+	 * @return Artist
 	 */
 	private Artist findArtistById(Long artistId) {
 		return artistDao.findById(artistId)
@@ -67,5 +69,21 @@ public class ArtistService {
 		artist.setName(artistData.getName());
 		artist.setGenre(artistData.getGenre());
 		// concerts
+	}
+
+	/**
+	 * Get a List of all Artists.
+	 * 
+	 * @return List<ArtistData>
+	 */
+	public List<ArtistData> retrieveAllArtists() {
+		List<Artist> artists = artistDao.findAll();
+		List<ArtistData> artistDataResults = new LinkedList<>();
+		
+		for (Artist artist : artists) {
+			ArtistData artistData = new ArtistData(artist);
+			artistDataResults.add(artistData);
+		}
+		return artistDataResults;
 	}
 }
