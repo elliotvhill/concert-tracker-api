@@ -11,8 +11,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import concert.tracker.controller.model.ArtistData;
 import concert.tracker.controller.model.ConcertData;
 import concert.tracker.controller.model.VenueData;
+import concert.tracker.service.ArtistService;
 import concert.tracker.service.ConcertService;
 import concert.tracker.service.VenueService;
 import lombok.extern.slf4j.Slf4j;
@@ -25,6 +27,8 @@ public class VenueController {
 	private VenueService venueService;
 	@Autowired
 	private ConcertService concertService;
+	@Autowired
+	private ArtistService artistService;
 	
 	/**
 	 * Create and insert a new Venue to the database.
@@ -56,5 +60,12 @@ public class VenueController {
 	public ConcertData insertConcert(@RequestBody ConcertData concertData) {
 		log.info("Creating concert {}", concertData);
 		return concertService.saveConcert(concertData);
+	}
+	
+	@PostMapping("/artist")
+	@ResponseStatus(code = HttpStatus.CREATED)
+	public ArtistData insertArtist(@RequestBody ArtistData artistData) {
+		log.info("Creating artist {}", artistData);
+		return artistService.saveArtist(artistData);
 	}
 }
