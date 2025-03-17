@@ -1,5 +1,7 @@
 package concert.tracker.service;
 
+import java.util.LinkedList;
+import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Objects;
 
@@ -71,5 +73,24 @@ public class ConcertService {
 		concert.setName(concertData.getName());
 		concert.setDate(concertData.getDate());
 		// artists
+	}
+
+	/**
+	 * Get a list of all Concerts. First get a list of all the Concert objects, then
+	 * create a new List of ConcertData, loop through the Concert objects and add
+	 * them to the List of ConcertData. Return the List of ConcertData to the
+	 * VenueController class' retrieveAllConcerts method.
+	 * 
+	 * @return List<ConcertData>
+	 */
+	public List<ConcertData> retrieveAllConcerts() {
+		List<Concert> concerts = concertDao.findAll();
+		List<ConcertData> concertDataResults = new LinkedList<>();
+
+		for (Concert concert : concerts) {
+			ConcertData concertData = new ConcertData(concert);
+			concertDataResults.add(concertData);
+		}
+		return concertDataResults;
 	}
 }

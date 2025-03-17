@@ -51,7 +51,7 @@ public class VenueController {
 	 */
 	@GetMapping("/venue")
 	public List<VenueData> retrieveAllVenues() {
-		log.info("Retrieving all venues");
+		log.info("Retrieving all venues...");
 		return venueService.retrieveAllVenues();
 	}
 	
@@ -62,10 +62,24 @@ public class VenueController {
 		return concertService.saveConcert(concertData);
 	}
 	
+	// retrieve all Concerts
+	@GetMapping("/concert")
+	public List<ConcertData> retrieveAllConcerts() {
+		log.info("Retrieving all concerts...");
+		return concertService.retrieveAllConcerts();
+	}
+	
 	@PostMapping("/artist")
 	@ResponseStatus(code = HttpStatus.CREATED)
 	public ArtistData insertArtist(@RequestBody ArtistData artistData) {
 		log.info("Creating artist {}", artistData);
 		return artistService.saveArtist(artistData);
 	}
+	
+	// TODO: retrieve all Artists
+//	@GetMapping("/artist")
+//	public List<ArtistData> retrieveAllArtists() {
+//		log.info("Retrieving all artists...");
+//		return artistService.retrieveAllArtists();
+//	}
 }
