@@ -29,12 +29,12 @@ public class VenueController {
 	private ConcertService concertService;
 	@Autowired
 	private ArtistService artistService;
-	
+
 	/**
 	 * Create and insert a new Venue to the database.
 	 * 
-	 * @param venueData
-	 * @return
+	 * @param VenueData
+	 * @return VenueData
 	 */
 	@PostMapping("/venue")
 	@ResponseStatus(code = HttpStatus.CREATED)
@@ -42,41 +42,60 @@ public class VenueController {
 		log.info("Creating venue {}", venueData);
 		return venueService.saveVenue(venueData);
 	}
-	
+
 	/**
 	 * Get a list of all Venues.
 	 * 
-	 * @param concertData
-	 * @return
+	 * @return List<VenueData>
 	 */
 	@GetMapping("/venue")
 	public List<VenueData> retrieveAllVenues() {
 		log.info("Retrieving all venues...");
 		return venueService.retrieveAllVenues();
 	}
-	
+
+	/**
+	 * Create and insert a new Concert to the database.
+	 * 
+	 * @param ConcertData
+	 * @return ConcertData
+	 */
 	@PostMapping("/concert")
 	@ResponseStatus(code = HttpStatus.CREATED)
 	public ConcertData insertConcert(@RequestBody ConcertData concertData) {
 		log.info("Creating concert {}", concertData);
 		return concertService.saveConcert(concertData);
 	}
-	
-	// retrieve all Concerts
+
+	/**
+	 * Get a list of all Concerts.
+	 * 
+	 * @return List<ConcertData>
+	 */
 	@GetMapping("/concert")
 	public List<ConcertData> retrieveAllConcerts() {
 		log.info("Retrieving all concerts...");
 		return concertService.retrieveAllConcerts();
 	}
-	
+
+	/**
+	 * Create and insert a new Artist to the database.
+	 * 
+	 * @param ArtistData
+	 * @return ArtistData
+	 */
 	@PostMapping("/artist")
 	@ResponseStatus(code = HttpStatus.CREATED)
 	public ArtistData insertArtist(@RequestBody ArtistData artistData) {
 		log.info("Creating artist {}", artistData);
 		return artistService.saveArtist(artistData);
 	}
-	
-	// TODO: retrieve all Artists
+
+	/**
+	 * Get a list of all Artists.
+	 * 
+	 * @return List<ArtistData>
+	 */
 	@GetMapping("/artist")
 	public List<ArtistData> retrieveAllArtists() {
 		log.info("Retrieving all artists...");
