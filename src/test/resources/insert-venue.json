@@ -4,4 +4,18 @@
 	"city": "New York",
 	"state": "NY",
 	"zip": "10001"
+},
+{
+	"name": "The Apollo Theater",
+	"streetAddress": "253 W 125th St",
+	"city": "New York",
+	"state": "NY",
+	"zip": "10027"
+},
+{
+	"name": "Forest Hills Stadium",
+	"streetAddress": "1 Tennis Pl",
+	"city": "Forest Hills",
+	"state": "NY",
+	"zip": "11375"
 }
