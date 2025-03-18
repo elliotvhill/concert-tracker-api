@@ -58,11 +58,15 @@ public class VenueController {
 
 	/**
 	 * Update a Venue object.
+	 * 
+	 * @param venueId
+	 * @param venueData
+	 * @return venueData
 	 */
 	@PutMapping("/venue/{venueId}")
 	public VenueData updateVenue(@PathVariable Long venueId, @RequestBody VenueData venueData) {
 		venueData.setVenueId(venueId);
-		log.info("Updated venue with ID={}", venueId);
+		log.info("Updating venue with ID={}", venueId);
 		return venueService.saveVenue(venueData);
 	}
 	
@@ -89,6 +93,20 @@ public class VenueController {
 		log.info("Retrieving all concerts...");
 		return concertService.retrieveAllConcerts();
 	}
+	
+	/**
+	 * Update a Concert object.
+	 * 
+	 * @param concertId
+	 * @param concertData
+	 * @return concertData
+	 */
+	@PutMapping("/concert/{concertId}")
+	public ConcertData updateConcert(@PathVariable Long concertId, @RequestBody ConcertData concertData) {
+		concertData.setConcertId(concertId);
+		log.info("Updating concert with ID={}", concertId);
+		return concertService.saveConcert(concertData);
+	}
 
 	/**
 	 * Create and insert a new Artist to the database.
@@ -112,5 +130,19 @@ public class VenueController {
 	public List<ArtistData> retrieveAllArtists() {
 		log.info("Retrieving all artists...");
 		return artistService.retrieveAllArtists();
+	}
+	
+	/**
+	 * Update an Artist object.
+	 * 
+	 * @param artistId
+	 * @param artistData
+	 * @return artistData
+	 */
+	@PutMapping("/artist/{artistId}")
+	public ArtistData updateArtist(@PathVariable Long artistId, ArtistData artistData) {
+		artistData.setArtistId(artistId);
+		log.info("Updating artist with ID={}", artistId);
+		return artistService.saveArtist(artistData);
 	}
 }
