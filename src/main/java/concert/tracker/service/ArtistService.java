@@ -4,6 +4,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Objects;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,12 +12,16 @@ import org.springframework.transaction.annotation.Transactional;
 
 import concert.tracker.controller.model.ArtistData;
 import concert.tracker.dao.ArtistDao;
+import concert.tracker.dao.ConcertDao;
 import concert.tracker.entity.Artist;
+import concert.tracker.entity.Concert;
 
 @Service
 public class ArtistService {
 	@Autowired
 	private ArtistDao artistDao;
+	@Autowired
+	private ConcertDao concertDao;
 
 	/**
 	 * Save an Artist object, whether a new (insert) or an update.
@@ -24,8 +29,15 @@ public class ArtistService {
 	@Transactional(readOnly = false)
 	public ArtistData saveArtist(ArtistData artistData) {
 		Long artistId = artistData.getArtistId();
+		
+		Set<Concert> concerts = concertDao.findAllByConcertIdIn(artistData.getConcerts());
+		
 		Artist artist = findOrCreateArtist(artistId);
 		copyArtistFields(artist, artistData);
+		
+		for (Concert concert : concerts) {
+			artist.getConcerts().add(concert);
+		}
 
 		return new ArtistData(artistDao.save(artist));
 	}
