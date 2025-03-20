@@ -5,6 +5,7 @@ import java.util.Set;
 
 import concert.tracker.entity.Artist;
 import concert.tracker.entity.Concert;
+import concert.tracker.entity.Venue;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -14,6 +15,7 @@ public class ConcertData {
 	private Long concertId;
 	private String name;
 	private String date;
+	private Venue venue;
 	private Set<ArtistData> artists = new HashSet<>();
 	
 	/**
@@ -25,6 +27,7 @@ public class ConcertData {
 		this.concertId = concert.getConcertId();
 		this.name = concert.getName();
 		this.date = concert.getDate();
+		this.venue = concert.getVenue();
 		
 		for (Artist artist : concert.getArtists()) {
 			this.artists.add(new ArtistData(artist));
@@ -42,6 +45,7 @@ public class ConcertData {
 		concert.setConcertId(concertId);
 		concert.setName(name);
 		concert.setDate(date);
+		concert.setVenue(venue);
 		
 		for (ArtistData artistData : artists) {
 			concert.getArtists().add(artistData.toArtist());
@@ -49,4 +53,5 @@ public class ConcertData {
 		
 		return concert;
 	}
+	
 }
