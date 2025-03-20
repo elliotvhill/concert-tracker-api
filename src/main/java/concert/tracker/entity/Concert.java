@@ -22,14 +22,14 @@ public class Concert {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long concertId;
-	
+
 	private String name;
 	private String date;
-	
+
 	// Many Concerts -> one Venue
 	@EqualsAndHashCode.Exclude
 	@ToString.Exclude
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	@JoinColumn(name = "venue_id")
 	private Venue venue;
 
@@ -37,6 +37,13 @@ public class Concert {
 	@EqualsAndHashCode.Exclude
 	@ToString.Exclude
 	@ManyToMany(cascade = CascadeType.PERSIST)
-	@JoinTable(name = "concert_artist", joinColumns = @JoinColumn(name = "concert_id"), inverseJoinColumns = @JoinColumn(name = "artist_id"))
+	// @formatter:off
+	@JoinTable(
+		name = "concert_artist", 
+		joinColumns = @JoinColumn(name = "concert_id"), 
+		inverseJoinColumns = @JoinColumn(name = "artist_id")
+	)
+	// @formatter:on
 	private Set<Artist> artists = new HashSet<>();
+
 }
