@@ -36,4 +36,17 @@ public class VenueData {
 			this.concerts.add(new ConcertData(concert));
 		}
 	}
+	
+	public Venue toVenue() {
+		Venue venue = new Venue();
+		
+		venue.setVenueId(venueId);
+		venue.setName(name);
+		venue.setStreetAddress(streetAddress);
+		venue.setCity(city);
+		venue.setState(state);
+		venue.setZip(zip);
+		
+		return venue;
+	}
 }
