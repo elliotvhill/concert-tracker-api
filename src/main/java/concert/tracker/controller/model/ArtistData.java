@@ -1,6 +1,10 @@
 package concert.tracker.controller.model;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import concert.tracker.entity.Artist;
+import concert.tracker.entity.Concert;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -10,6 +14,7 @@ public class ArtistData {
 	private Long artistId;
 	private String name;
 	private String genre;
+	private Set<ConcertData> concerts = new HashSet<>();
 	
 	/**
 	 * Construct an ArtistData object from an Artist object
@@ -21,6 +26,10 @@ public class ArtistData {
 		this.artistId = artist.getArtistId();
 		this.name = artist.getName();
 		this.genre = artist.getGenre();
+		
+		for (Concert concert : artist.getConcerts()) {
+			this.concerts.add(new ConcertData(concert));
+		}
 	}
 	
 	/**
