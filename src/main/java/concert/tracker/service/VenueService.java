@@ -77,7 +77,7 @@ public class VenueService {
 	}
 
 	/**
-	 * Retrieve a list of all the Venues.
+	 * Retrieve a list of all the venues as VenueData objects.
 	 * 
 	 * @return List<VenueData> venueDataResults
 	 */

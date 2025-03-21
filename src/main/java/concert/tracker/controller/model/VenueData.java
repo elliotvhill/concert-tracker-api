@@ -18,11 +18,12 @@ public class VenueData {
 	private String state;
 	private String zip;
 	private Set<ConcertData> concerts = new HashSet<>();
-	
+
 	/**
-	 * Construct a VenueData object from a Venue object
+	 * Construct a VenueData object from a Venue object.
 	 * 
-	 * @param venue
+	 * @param venue The Venue object that contains the data to initialize the
+	 *              VenueData object.
 	 */
 	public VenueData(Venue venue) {
 		this.venueId = venue.getVenueId();
@@ -31,22 +32,29 @@ public class VenueData {
 		this.city = venue.getCity();
 		this.state = venue.getState();
 		this.zip = venue.getZip();
-		
+
+		// Convert the concerts associated with the venue into ConcertData objects.
 		for (Concert concert : venue.getConcerts()) {
 			this.concerts.add(new ConcertData(concert));
 		}
 	}
-	
+
+	/**
+	 * Convert a VenueData object back to a Venue object.
+	 * 
+	 * @return Venue A new Venue object created using the data from the VenueData
+	 *         object.
+	 */
 	public Venue toVenue() {
 		Venue venue = new Venue();
-		
+
 		venue.setVenueId(venueId);
 		venue.setName(name);
 		venue.setStreetAddress(streetAddress);
 		venue.setCity(city);
 		venue.setState(state);
 		venue.setZip(zip);
-		
+
 		return venue;
 	}
 }
