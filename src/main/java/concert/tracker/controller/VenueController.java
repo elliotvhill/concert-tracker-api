@@ -33,10 +33,10 @@ public class VenueController {
 	private ArtistService artistService;
 
 	/**
-	 * Create and insert a new Venue to the database.
+	 * Create and insert a new Venue into the database.
 	 * 
-	 * @param VenueData
-	 * @return VenueData
+	 * @param venueData The data for the new Venue to be created.
+	 * @return VenueData The data of the newly created Venue.
 	 */
 	@PostMapping("/venue")
 	@ResponseStatus(code = HttpStatus.CREATED)
@@ -57,11 +57,11 @@ public class VenueController {
 	}
 
 	/**
-	 * Update a Venue object.
+	 * Update an existing Venue object.
 	 * 
-	 * @param venueId
-	 * @param venueData
-	 * @return venueData
+	 * @param venueId   The ID of the venue to be updated.
+	 * @param venueData The updated venue data to send in the request.
+	 * @return VenueData The updated VenueData after the save.
 	 */
 	@PutMapping("/venue/{venueId}")
 	public VenueData updateVenue(@PathVariable Long venueId, @RequestBody VenueData venueData) {
@@ -69,12 +69,12 @@ public class VenueController {
 		log.info("Updating venue with ID={}", venueId);
 		return venueService.saveVenue(venueData);
 	}
-	
+
 	/**
 	 * Create and insert a new Concert to the database.
 	 * 
-	 * @param ConcertData
-	 * @return ConcertData
+	 * @param concertData The data for the new Concert.
+	 * @return ConcertData The data of the newly created concert.
 	 */
 	@PostMapping("/concert")
 	@ResponseStatus(code = HttpStatus.CREATED)
@@ -86,16 +86,17 @@ public class VenueController {
 	/**
 	 * Get a list of all Concerts.
 	 * 
-	 * @return List<ConcertData>
+	 * @return List<ConcertData> A list of ConcertData objects representing all
+	 *         Concerts.
 	 */
 	@GetMapping("/concert")
 	public List<ConcertData> retrieveAllConcerts() {
 		log.info("Retrieving all concerts...");
 		return concertService.retrieveAllConcerts();
 	}
-	
+
 	/**
-	 * Update a Concert object.
+	 * Update an existing Concert object.
 	 * 
 	 * @param concertId
 	 * @param concertData
@@ -109,10 +110,10 @@ public class VenueController {
 	}
 
 	/**
-	 * Create and insert a new Artist to the database.
+	 * Create and insert a new Artist into the database.
 	 * 
-	 * @param ArtistData
-	 * @return ArtistData
+	 * @param artistData The data for the new Artist to be created.
+	 * @return ArtistData The data of the newly created Artist.
 	 */
 	@PostMapping("/artist")
 	@ResponseStatus(code = HttpStatus.CREATED)
@@ -124,20 +125,21 @@ public class VenueController {
 	/**
 	 * Get a list of all Artists.
 	 * 
-	 * @return List<ArtistData>
+	 * @return List<ArtistData> A list of ArtistData objects representing all
+	 *         artists.
 	 */
 	@GetMapping("/artist")
 	public List<ArtistData> retrieveAllArtists() {
 		log.info("Retrieving all artists...");
 		return artistService.retrieveAllArtists();
 	}
-	
+
 	/**
-	 * Update an Artist object.
+	 * Update an existing Artist object.
 	 * 
-	 * @param artistId
-	 * @param artistData
-	 * @return artistData
+	 * @param artistId   The ID of the Artist to update.
+	 * @param artistData The updated data passed in the request.
+	 * @return ArtistData The updated Artist data after the object is saved.
 	 */
 	@PutMapping("/artist/{artistId}")
 	public ArtistData updateArtist(@PathVariable Long artistId, ArtistData artistData) {
