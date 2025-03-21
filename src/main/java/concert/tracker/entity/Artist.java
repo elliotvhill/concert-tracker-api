@@ -3,6 +3,7 @@ package concert.tracker.entity;
 import java.util.HashSet;
 import java.util.Set;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -24,11 +25,6 @@ public class Artist {
 	// Many Artists -> many Concerts
 	@EqualsAndHashCode.Exclude
 	@ToString.Exclude
-	@ManyToMany(mappedBy = "artists")
+	@ManyToMany(mappedBy = "artists", cascade = CascadeType.PERSIST)
 	private Set<Concert> concerts = new HashSet<>();
-//	@JoinTable(
-//		name = "concert_artist",
-//		joinColumns = @JoinColumn(name = "artist_id"),
-//		inverseJoinColumns = @JoinColumn(name = "concert_id")
-//	)
 }
