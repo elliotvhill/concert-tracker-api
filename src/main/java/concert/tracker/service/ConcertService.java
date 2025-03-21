@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import concert.tracker.controller.model.ConcertData;
 import concert.tracker.dao.ArtistDao;
 import concert.tracker.dao.ConcertDao;
+import concert.tracker.dao.VenueDao;
 import concert.tracker.entity.Artist;
 import concert.tracker.entity.Concert;
 
@@ -22,6 +23,8 @@ public class ConcertService {
 	private ConcertDao concertDao;
 	@Autowired
 	private ArtistDao artistDao;
+	@Autowired
+	private VenueDao venueDao;
 
 	/**
 	 * Save a Concert object, whether a new (insert) or an update.
@@ -33,16 +36,18 @@ public class ConcertService {
 	@Transactional(readOnly = false)
 	public ConcertData saveConcert(ConcertData concertData) {
 		Long concertId = concertData.getConcertId();
-		
-		Set<Artist> artists = artistDao.findAllByArtistIdIn(concertData.getArtists());
-		
+
+		// Get a Set of artist IDs
+		Set<Long> artistIds = concertData.getArtistIds();
+		// Retrieve the artists from the database using the above artist IDs
+		Set<Artist> artists = artistDao.findAllByArtistIdIn(artistIds);
+
 		Concert concert = findOrCreateConcert(concertId);
 		copyConcertFields(concert, concertData);
-		
-		for (Artist artist : artists) {
-			concert.getArtists().add(artist);
-		}
-		
+
+		// Add artists to the concert
+		concert.setArtists(artists);
+
 		return new ConcertData(concertDao.save(concert));
 	}
 
@@ -84,7 +89,9 @@ public class ConcertService {
 		concert.setConcertId(concertData.getConcertId());
 		concert.setName(concertData.getName());
 		concert.setDate(concertData.getDate());
-		concert.setVenue(concertData.getVenue());
+// Set the venue if it exists
+		concert.setVenue(venueDao.findById(concertData.getVenueId()).orElse(null));
+
 	}
 
 	/**
