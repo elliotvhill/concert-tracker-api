@@ -7,3 +7,7 @@ INSERT INTO venue (name, street_address, city, state, zip) VALUES ('College Stre
 INSERT INTO artist (name, genre) VALUES ('The National', 'alternative rock');
 INSERT INTO artist (name, genre) VALUES ('Spoon', 'alternative rock');
 INSERT INTO artist (name, genre) VALUES ('Pink', 'pop');
+
+INSERT INTO concert (name, date, venue_id) VALUES ("The National's Venn Diagram Tour", "08/03/2023", 1);
+INSERT INTO concert (name, date, venue_id) VALUES ("Spoon New Year's Eve", "12/31/2017", 4);
+INSERT INTO concert (name, date, venue_id) VALUES ("Orville Peck Bronco Tour", "10/12/2021", 5);
