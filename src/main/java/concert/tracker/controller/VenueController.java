@@ -38,7 +38,7 @@ public class VenueController {
 	 * Create and insert a new Venue into the database.
 	 * 
 	 * @param venueData The data for the new Venue to be created.
-	 * @return VenueData The data of the newly created Venue.
+	 * @return The VenueData of the newly created Venue.
 	 */
 	@PostMapping("/venue")
 	@ResponseStatus(code = HttpStatus.CREATED)
@@ -50,7 +50,7 @@ public class VenueController {
 	/**
 	 * Get a list of all Venues.
 	 * 
-	 * @return List<VenueData>
+	 * @return List of all Venues.
 	 */
 	@GetMapping("/venue")
 	public List<VenueData> retrieveAllVenues() {
@@ -63,7 +63,7 @@ public class VenueController {
 	 * 
 	 * @param venueId   The ID of the venue to be updated.
 	 * @param venueData The updated venue data to send in the request.
-	 * @return VenueData The updated VenueData after the save.
+	 * @return The updated VenueData after the save.
 	 */
 	@PutMapping("/venue/{venueId}")
 	public VenueData updateVenue(@PathVariable Long venueId, @RequestBody VenueData venueData) {
@@ -71,9 +71,16 @@ public class VenueController {
 		log.info("Updating venue with ID={}", venueId);
 		return venueService.saveVenue(venueData);
 	}
-	
+
 	// TODO: Delete a Venue by ID
-	
+	@DeleteMapping("/venue/{venueId}")
+	public Map<String, String> deleteVenueById(@PathVariable Long venueId) {
+		log.info("Attempting to delete venue with ID={}", venueId);
+		venueService.deleteVenueById(venueId);
+		
+		return Map.of("message", "Deleted venue with ID=" + venueId + ".");
+	}
+
 	/**
 	 * Throw an exception for a request to delete all venues.
 	 */
@@ -87,7 +94,7 @@ public class VenueController {
 	 * Create and insert a new Concert to the database.
 	 * 
 	 * @param concertData The data for the new Concert.
-	 * @return ConcertData The data of the newly created concert.
+	 * @return The ConcertData of the newly created Concert.
 	 */
 	@PostMapping("/concert")
 	@ResponseStatus(code = HttpStatus.CREATED)
@@ -99,8 +106,7 @@ public class VenueController {
 	/**
 	 * Get a list of all Concerts.
 	 * 
-	 * @return List<ConcertData> A list of ConcertData objects representing all
-	 *         Concerts.
+	 * @return List of ConcertData objects representing all Concerts.
 	 */
 	@GetMapping("/concert")
 	public List<ConcertData> retrieveAllConcerts() {
@@ -111,9 +117,9 @@ public class VenueController {
 	/**
 	 * Update an existing Concert object.
 	 * 
-	 * @param concertId
-	 * @param concertData
-	 * @return concertData
+	 * @param concertId   The ID of the Concert to update.
+	 * @param concertData The Concert information to be updated.
+	 * @return The updated ConcertData after the object is saved.
 	 */
 	@PutMapping("/concert/{concertId}")
 	public ConcertData updateConcert(@PathVariable Long concertId, @RequestBody ConcertData concertData) {
@@ -121,9 +127,21 @@ public class VenueController {
 		log.info("Updating concert with ID={}", concertId);
 		return concertService.saveConcert(concertData);
 	}
-	
-	// TODO: Delete a Concert by ID
-	
+
+	/**
+	 * Delete a Concert by ID.
+	 * 
+	 * @param concertId
+	 * @return Map of a JSON response message confirming the deletion.
+	 */
+	@DeleteMapping("/concert/{concertId}")
+	public Map<String, String> deleteConcertById(@PathVariable Long concertId) {
+		log.info("Attempting to delete concert with ID={}", concertId);
+		concertService.deleteConcertById(concertId);
+
+		return Map.of("message", "Deleted concert with ID=" + concertId + ".");
+	}
+
 	/**
 	 * Throw an exception for a request to delete all concerts.
 	 */
@@ -149,8 +167,7 @@ public class VenueController {
 	/**
 	 * Get a list of all Artists.
 	 * 
-	 * @return List<ArtistData> A list of ArtistData objects representing all
-	 *         artists.
+	 * @return List of ArtistData objects representing all artists.
 	 */
 	@GetMapping("/artist")
 	public List<ArtistData> retrieveAllArtists() {
@@ -163,7 +180,7 @@ public class VenueController {
 	 * 
 	 * @param artistId   The ID of the Artist to update.
 	 * @param artistData The updated data passed in the request.
-	 * @return ArtistData The updated Artist data after the object is saved.
+	 * @return The updated Artist Data after the object is saved.
 	 */
 	@PutMapping("/artist/{artistId}")
 	public ArtistData updateArtist(@PathVariable Long artistId, ArtistData artistData) {
@@ -171,17 +188,18 @@ public class VenueController {
 		log.info("Updating artist with ID={}", artistId);
 		return artistService.saveArtist(artistData);
 	}
-	
-	/** 
-	 * Delete an Artist by ID
+
+	/**
+	 * Delete an Artist by ID.
+	 * 
 	 * @param artistId
-	 * @return
+	 * @return Map of a JSON response message confirming the deletion.
 	 */
 	@DeleteMapping("/artist/{artistId}")
 	public Map<String, String> deleteArtistById(@PathVariable Long artistId) {
 		log.info("Attempting to delete artist with ID={}", artistId);
 		artistService.deleteArtistById(artistId);
-		
+
 		return Map.of("message", "Deleted artist with ID=" + artistId + ".");
 	}
 
