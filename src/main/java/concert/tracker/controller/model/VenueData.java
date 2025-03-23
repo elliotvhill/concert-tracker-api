@@ -38,6 +38,25 @@ public class VenueData {
 			this.concerts.add(new ConcertData(concert));
 		}
 	}
+	
+	/**
+	 * Construct a VenueData object from data passed as parameters.
+	 * 
+	 * @param venueId
+	 * @param name
+	 * @param streetAddress
+	 * @param city
+	 * @param state
+	 * @param zip
+	 */
+	public VenueData(Long venueId, String name, String streetAddress, String city, String state, String zip) {
+		this.venueId = venueId;
+		this.name = name;
+		this.streetAddress = streetAddress;
+		this.city = city;
+		this.state = state;
+		this.zip = zip;
+	}
 
 	/**
 	 * Convert a VenueData object back to a Venue object.
