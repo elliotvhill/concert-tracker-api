@@ -1,9 +1,11 @@
 package concert.tracker.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -69,6 +71,17 @@ public class VenueController {
 		log.info("Updating venue with ID={}", venueId);
 		return venueService.saveVenue(venueData);
 	}
+	
+	// TODO: Delete a Venue by ID
+	
+	/**
+	 * Throw an exception for a request to delete all venues.
+	 */
+	@DeleteMapping("/venue")
+	public void deleteAllVenues() {
+		log.info("Attempting to delete all venues...");
+		throw new UnsupportedOperationException("Deleting all venues is not allowed.");
+	}
 
 	/**
 	 * Create and insert a new Concert to the database.
@@ -108,6 +121,17 @@ public class VenueController {
 		log.info("Updating concert with ID={}", concertId);
 		return concertService.saveConcert(concertData);
 	}
+	
+	// TODO: Delete a Concert by ID
+	
+	/**
+	 * Throw an exception for a request to delete all concerts.
+	 */
+	@DeleteMapping("/concert")
+	public void deleteAllConcerts() {
+		log.info("Attempting to delete all concerts...");
+		throw new UnsupportedOperationException("Deleting all concerts is not allowed.");
+	}
 
 	/**
 	 * Create and insert a new Artist into the database.
@@ -146,5 +170,27 @@ public class VenueController {
 		artistData.setArtistId(artistId);
 		log.info("Updating artist with ID={}", artistId);
 		return artistService.saveArtist(artistData);
+	}
+	
+	/** 
+	 * Delete an Artist by ID
+	 * @param artistId
+	 * @return
+	 */
+	@DeleteMapping("/artist/{artistId}")
+	public Map<String, String> deleteArtistById(@PathVariable Long artistId) {
+		log.info("Attempting to delete artist with ID={}", artistId);
+		artistService.deleteArtistById(artistId);
+		
+		return Map.of("message", "Deleted artist with ID=" + artistId + ".");
+	}
+
+	/**
+	 * Throw an exception for a request to delete all artists.
+	 */
+	@DeleteMapping("/artist")
+	public void deleteAllArtists() {
+		log.info("Attempting to delete all artists...");
+		throw new UnsupportedOperationException("Deleting all artists is not allowed.");
 	}
 }
