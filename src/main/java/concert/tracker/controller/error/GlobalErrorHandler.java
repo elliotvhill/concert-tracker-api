@@ -39,11 +39,60 @@ public class GlobalErrorHandler {
 
 	/**
 	 * Handle PUT requests sent to an invalid ID.
+	 * 
+	 * @param exception  The NoSuchElementException object.
+	 * @param webRequest Used to access the URI of the request that created the
+	 *                   exception.
+	 * @return An exception message as a JSON response.
 	 */
+
 	@ExceptionHandler(NoSuchElementException.class)
 	@ResponseStatus(code = HttpStatus.NOT_FOUND)
 	public ExceptionMessage handleNoSuchElementException(NoSuchElementException exception, WebRequest webRequest) {
 		return buildExceptionMessage(exception, HttpStatus.NOT_FOUND, webRequest, LogStatus.MESSAGE_ONLY);
+	}
+
+	/**
+	 * Handle unsupported operations.
+	 * 
+	 * @param exception  The specific Exception object.
+	 * @param webRequest Used to access the URI of the request that created the
+	 *                   exception.
+	 * @return An exception message as a JSON response.
+	 */
+	@ExceptionHandler(UnsupportedOperationException.class)
+	@ResponseStatus(code = HttpStatus.METHOD_NOT_ALLOWED)
+	public ExceptionMessage handleUnsupportedOperationException(UnsupportedOperationException exception,
+			WebRequest webRequest) {
+		return buildExceptionMessage(exception, HttpStatus.METHOD_NOT_ALLOWED, webRequest, LogStatus.MESSAGE_ONLY);
+	}
+
+	/**
+	 * Handle a Bad Request.
+	 * 
+	 * @param exception  The an IllegalStateException.
+	 * @param webRequest Used to access the URI of the request that created the
+	 *                   exception.
+	 * @return An exception message as a JSON response.
+	 */
+	@ExceptionHandler(IllegalStateException.class)
+	@ResponseStatus(code = HttpStatus.BAD_REQUEST)
+	public ExceptionMessage handleBadRequest(IllegalStateException exception, WebRequest webRequest) {
+		return buildExceptionMessage(exception, HttpStatus.BAD_REQUEST, webRequest, LogStatus.MESSAGE_ONLY);
+	}
+
+	/**
+	 * Handle all other exception types.
+	 * 
+	 * @param exception  The exception thrown.
+	 * @param webRequest Used to access the URI of the request that created the
+	 *                   exception.
+	 * @return An exception error message including a full stack trace.
+	 */
+	@ExceptionHandler(Exception.class)
+	@ResponseStatus(code = HttpStatus.INTERNAL_SERVER_ERROR)
+	public ExceptionMessage handleException(Exception exception, WebRequest webRequest) {
+		return buildExceptionMessage(exception, HttpStatus.INTERNAL_SERVER_ERROR, webRequest, LogStatus.STACK_TRACE);
 	}
 
 	/**
