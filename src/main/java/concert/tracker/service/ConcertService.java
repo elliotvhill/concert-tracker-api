@@ -112,4 +112,15 @@ public class ConcertService {
 		}
 		return concertDataResults;
 	}
+
+	/**
+	 * Delete a Concert by ID.
+	 * 
+	 * @param concertId The ID of the Concert to delete.
+	 */
+	@Transactional(readOnly = false)
+	public void deleteConcertById(Long concertId) {
+		Concert concert = findConcertById(concertId);
+		concertDao.delete(concert);
+	}
 }
