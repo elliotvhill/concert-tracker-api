@@ -79,7 +79,7 @@ public class VenueService {
 	/**
 	 * Retrieve a list of all the venues as VenueData objects.
 	 * 
-	 * @return List<VenueData> venueDataResults
+	 * @return List of all Venues as VenueData objects.
 	 */
 	public List<VenueData> retrieveAllVenues() {
 		/**
@@ -92,7 +92,7 @@ public class VenueService {
 		 * controller returns a VenueData object.
 		 */
 		List<VenueData> venueDataResults = new LinkedList<>();
-		
+
 		/**
 		 * Loop through Venues List and add entities to VenueData List.
 		 */
@@ -102,5 +102,16 @@ public class VenueService {
 		}
 
 		return venueDataResults;
+	}
+
+	/**
+	 * Delete a Venue by ID.
+	 * 
+	 * @param venueId The ID of the Venue to delete.
+	 */
+	@Transactional(readOnly = false)
+	public void deleteVenueById(Long venueId) {
+		Venue venue = findVenueById(venueId);
+		venueDao.delete(venue);
 	}
 }
