@@ -1,0 +1,11 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:concert_tracker;MODE=MYSQL
+    
+  jpa:
+    hibernate:
+      ddl-auto: create-drop # Ensures schema is created & dropped per test session
+      show-sql: true # Optional: Logs SQL queries to console
+  sql:
+    init:
+      mode: always # Ensures data.sql is loaded every test run
