@@ -75,7 +75,7 @@ public class ArtistService {
 	/**
 	 * Get a List of all Artists.
 	 * 
-	 * @return List<ArtistData>
+	 * @return List of all Artists in the database.
 	 */
 	public List<ArtistData> retrieveAllArtists() {
 		List<Artist> artists = artistDao.findAll();
@@ -86,5 +86,16 @@ public class ArtistService {
 			artistDataResults.add(artistData);
 		}
 		return artistDataResults;
+	}
+
+	/**
+	 * Delete an Artist by ID.
+	 * 
+	 * @param artistId ID of the Artist to delete.
+	 */
+	@Transactional(readOnly = false)
+	public void deleteArtistById(Long artistId) {
+		Artist artist = findArtistById(artistId);
+		artistDao.delete(artist);
 	}
 }
